@@ -3,75 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Mathematics Quiz</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/modal.css">
+    <title>Mathematics Quiz</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="app-container">
-        <header class="quiz-header">
-            <h1>Advanced Mathematics Quiz</h1>
-            <div class="progress-container">
-                <div id="progressBar" class="progress-bar"></div>
-            </div>
-        </header>
-
-        <main class="quiz-main">
-            <div class="topic-selection">
-                <select id="topicSelect">
-                    <option value="">Select a Mathematics Topic</option>
-                    <option value="number-algebra">Number and Algebra</option>
-                    <option value="sets-functions">Sets and Functions</option>
-                    <option value="trigonometry-geometry">Trigonometry and Geometry</option>
-                    <option value="mensuration-statistics">Mensuration and Statistics</option>
-                    <option value="advanced-algebra-vectors">Advanced Algebra and Vectors</option>
-                    <option value="probability-algebra-geometry">Probability, Algebra, and Geometry</option>
-                    <option value="geometry-algebra-calculus">Geometry, Algebra, and Calculus</option>
-                    <option value="calculus-advanced-algebra">Calculus and Advanced Algebra</option>
-                </select>
-            </div>
-
-            <div id="quizContainer" class="quiz-container hidden">
-                <div id="questionContainer" class="question-container"></div>
-                <div class="button-container">
-                    <button id="submitQuiz" class="submit-btn">Submit Quiz</button>
-                    <button id="resetQuiz" class="reset-btn hidden">Try Again</button>
-                </div>
-            </div>
-        </main>
-
-        <!-- Hint Modal -->
-        <div id="hintModal" class="modal">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <h2>Hint</h2>
-                <div id="hintContent"></div>
-                <div class="hint-navigation">
-                    <button id="showTip" class="hint-btn">Show Tip</button>
-                    <button id="showClue" class="hint-btn">Show Clue</button>
-                    <button id="showGuide" class="hint-btn">Show Guide</button>
-                </div>
-            </div>
+    <div class="container">
+        <h1>Mathematics Quiz</h1>
+        <select class="topic-select" id="topicSelect">
+            <option value="">Select a Topic</option>
+            <option value="Number and Algebra">Number and Algebra</option>
+            <option value="Sets and Functions">Sets and Functions</option>
+            <option value="Trigonometry and Geometry">Trigonometry and Geometry</option>
+            <option value="Mensuration and Statistics">Mensuration and Statistics</option>
+            <option value="Advanced Algebra and Vectors">Advanced Algebra and Vectors</option>
+            <option value="Probability, Algebra, and Geometry">Probability, Algebra, and Geometry</option>
+            <option value="Geometry, Algebra, and Calculus">Geometry, Algebra, and Calculus</option>
+            <option value="Calculus and Advanced Algebra">Calculus and Advanced Algebra</option>
+        </select>
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-text" id="progressText">Questions Answered: 0/5</div>
+            <div class="progress-bar" id="progressBar"></div>
         </div>
-
-        <!-- Results Modal -->
-        <div id="resultsModal" class="modal">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <h2>Quiz Results</h2>
-                <div id="resultsContent"></div>
-                <div id="scoreChart"></div>
-            </div>
-        </div>
+        <div id="quizContainer" class="quiz-container"></div>
     </div>
-
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/3.7.0/chart.min.js"></script>
-    <script src="js/quizData.js"></script>
-    <script src="js/hintSystem.js"></script>
-    <script src="js/quizManager.js"></script>
-    <script src="js/uiManager.js"></script>
-    <script src="js/main.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

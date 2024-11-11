@@ -1447,34 +1447,32 @@ const quizQuestions = {
     ]
 };
 
-// Add mensurationAndStatistics to the main quizQuestions object
-quizQuestions["Mensuration and Statistics"] = mensurationAndStatistics;
-quizQuestions["Geometry, Algebra and Calculus"] = geometryAlgebraAndCalculus;
-quizQuestions["Calculus and Advanced Algebra"] = calculusAndAdvancedAlgebra;
-
-// Add function to randomly select questions
+// Function to get random questions
 function getRandomQuestions(questions, count = 5) {
     const shuffled = [...questions].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
 }
 
-function updateProgress() {
-    const totalQuestions = 5;
-    const answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
-    const progressBar = document.getElementById('progressBar');
-    const progressText = document.getElementById('progressText');
-    
-    const percentage = (answeredQuestions / totalQuestions) * 100;
-    progressBar.style.width = `${percentage}%`;
-    progressText.textContent = `Questions Answered: ${answeredQuestions}/${totalQuestions}`;
-}
-
+// Function to create quiz
 function createQuiz(topic) {
     const quizContainer = document.getElementById('quizContainer');
+    const progressContainer = document.getElementById('progressContainer');
+    
+    // Check if questions exist for the topic
+    if (!quizQuestions[topic]) {
+        quizContainer.innerHTML = '<p>No questions available for this topic yet.</p>';
+        return;
+    }
+
     const questions = getRandomQuestions(quizQuestions[topic]);
     
+    // Clear previous quiz
     quizContainer.innerHTML = '';
     
+    // Show progress container
+    progressContainer.style.display = 'block';
+    
+    // Create questions
     questions.forEach((q, index) => {
         const questionDiv = document.createElement('div');
         questionDiv.className = 'question-container';
@@ -1502,58 +1500,76 @@ function createQuiz(topic) {
     submitButton.textContent = 'Submit Answers';
     submitButton.onclick = checkAnswers;
     quizContainer.appendChild(submitButton);
+    
+    // Show quiz container
+    quizContainer.style.display = 'block';
 }
 
+// Function to check answers
 function checkAnswers() {
     const questions = document.querySelectorAll('.question-container');
-    if (!questions || questions.length === 0) {
-        console.error('No questions found to check');
-        return;
-    }
-
     let score = 0;
-    let answeredQuestions = 0;
 
-    questions.forEach((container, index) => {
-        const selectedOption = container.querySelector(`input[name="question${index}"]:checked`);
+    questions.forEach((container) => {
+        const questionData = JSON.parse(container.dataset.question);
+        const selectedOption = container.querySelector('input[type="radio"]:checked');
+        const resultIndicators = container.querySelectorAll('.result-indicator');
+
+        resultIndicators.forEach(indicator => indicator.style.display = 'none');
+
         if (selectedOption) {
-            answeredQuestions++;
-            // ... rest of the checking logic ...
+            const isCorrect = parseInt(selectedOption.value) === questionData.correct;
+            const indicator = selectedOption.parentElement.querySelector('.result-indicator');
+            
+            indicator.innerHTML = isCorrect ? '✓' : '✗';
+            indicator.className = `result-indicator ${isCorrect ? 'correct' : 'incorrect'}`;
+            indicator.style.display = 'inline';
+            
+            if (isCorrect) score++;
         }
     });
 
-    // Optionally warn if not all questions are answered
-    if (answeredQuestions < questions.length) {
-        if (!confirm('You haven\'t answered all questions. Do you want to submit anyway?')) {
-            return;
-        }
-    }
+    // Remove existing score display if it exists
+    const existingScore = document.querySelector('.score-display');
+    if (existingScore) existingScore.remove();
 
-    // ... rest of the function ...
+    // Display score
+    const scoreDisplay = document.createElement('div');
+    scoreDisplay.className = 'score-display';
+    scoreDisplay.textContent = `Your Score: ${score}/${questions.length}`;
+    document.getElementById('quizContainer').appendChild(scoreDisplay);
 }
 
-// Add event listener for topic selection
+// Function to update progress
+function updateProgress() {
+    const totalQuestions = 5;
+    const answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    
+    const percentage = (answeredQuestions / totalQuestions) * 100;
+    progressBar.style.width = `${percentage}%`;
+    progressText.textContent = `Questions Answered: ${answeredQuestions}/${totalQuestions}`;
+}
+
+// Add event listeners when the document loads
 document.addEventListener('DOMContentLoaded', () => {
     const topicSelect = document.getElementById('topicSelect');
-    const quizContainer = document.getElementById('quizContainer');
-    const progressContainer = document.getElementById('progressContainer');
-
+    
+    // Add event listener for topic selection
     topicSelect.addEventListener('change', (e) => {
         if (e.target.value) {
             createQuiz(e.target.value);
-            progressContainer.style.display = 'block';
-            quizContainer.style.display = 'block';
         } else {
-            quizContainer.style.display = 'none';
-            progressContainer.style.display = 'none';
-            quizContainer.innerHTML = '';
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('progressContainer').style.display = 'none';
         }
     });
-});
 
-// Add event listener for radio buttons to update progress
-document.addEventListener('change', (e) => {
-    if (e.target.type === 'radio') {
-        updateProgress();
-    }
+    // Add event listener for radio button changes
+    document.addEventListener('change', (e) => {
+        if (e.target.type === 'radio') {
+            updateProgress();
+        }
+    });
 });

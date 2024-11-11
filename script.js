@@ -1,9 +1,14 @@
 const quizQuestions = {
     "Number and Algebra": [
         {
+            question: "Solve for x: 2x + 5 = 13",
+            options: ["x = 4", "x = 8", "x = 3", "x = 6"],
+            correct: 0
+        },
+        {
             "question": "What is the value of x in the equation 2x + 5 = 13?",
-            "options": ["x = 3", "x = 4", "x = 5", "x = 6"],
-            "correct": 1
+            "options": ["x = 4", "x = 8", "x = 3", "x = 6"],
+            "correct": 0
         },
         {
             "question": "Which of the following is a prime number?",
@@ -1465,107 +1470,90 @@ function updateProgress() {
 }
 
 function createQuiz(topic) {
-    const questions = quizQuestions[topic];
-    if (!questions) return;
-
-    // Get 5 random questions instead of all questions
-    const selectedQuestions = getRandomQuestions(questions);
-
     const quizContainer = document.getElementById('quizContainer');
-    const progressContainer = document.getElementById('progressContainer');
+    const questions = getRandomQuestions(quizQuestions[topic]);
     
-    quizContainer.style.display = 'block';
-    progressContainer.style.display = 'block';
     quizContainer.innerHTML = '';
-
-    selectedQuestions.forEach((q, index) => {
+    
+    questions.forEach((q, index) => {
         const questionDiv = document.createElement('div');
         questionDiv.className = 'question-container';
-        // Add this line to store question data
         questionDiv.dataset.question = JSON.stringify(q);
         
-        const questionText = document.createElement('div');
-        questionText.className = 'question';
-        questionText.textContent = `${index + 1}. ${q.question}`;
-
-        const optionsDiv = document.createElement('div');
-        optionsDiv.className = 'options';
-
-        q.options.forEach((opt, optIndex) => {
-            const option = document.createElement('label');
-            option.className = 'option';
-
-            const radio = document.createElement('input');
-            radio.type = 'radio';
-            radio.name = `question${index}`;
-            radio.value = optIndex;
-            radio.addEventListener('change', updateProgress);
-
-            const optionText = document.createTextNode(opt);
-            const resultIndicator = document.createElement('span');
-            resultIndicator.className = 'result-indicator';
-            resultIndicator.innerHTML = '✓';
-
-            option.appendChild(radio);
-            option.appendChild(optionText);
-            option.appendChild(resultIndicator);
-            optionsDiv.appendChild(option);
-        });
-
-        questionDiv.appendChild(questionText);
-        questionDiv.appendChild(optionsDiv);
+        questionDiv.innerHTML = `
+            <div class="question">${index + 1}. ${q.question}</div>
+            <div class="options">
+                ${q.options.map((option, i) => `
+                    <label class="option">
+                        <input type="radio" name="question${index}" value="${i}">
+                        ${option}
+                        <span class="result-indicator"></span>
+                    </label>
+                `).join('')}
+            </div>
+        `;
+        
         quizContainer.appendChild(questionDiv);
     });
-
+    
+    // Add submit button
     const submitButton = document.createElement('button');
     submitButton.className = 'submit-btn';
-    submitButton.textContent = 'Submit Quiz';
+    submitButton.textContent = 'Submit Answers';
     submitButton.onclick = checkAnswers;
     quizContainer.appendChild(submitButton);
-
-    // Reset progress bar
-    updateProgress();
 }
 
 function checkAnswers() {
     const questions = document.querySelectorAll('.question-container');
+    if (!questions || questions.length === 0) {
+        console.error('No questions found to check');
+        return;
+    }
+
     let score = 0;
+    let answeredQuestions = 0;
 
     questions.forEach((container, index) => {
         const selectedOption = container.querySelector(`input[name="question${index}"]:checked`);
-        const resultIndicators = container.querySelectorAll('.result-indicator');
-        const questionData = JSON.parse(container.dataset.question);
-
-        // Hide all indicators first
-        resultIndicators.forEach(indicator => {
-            indicator.style.display = 'none';
-        });
-
         if (selectedOption) {
-            const isCorrect = parseInt(selectedOption.value) === questionData.correct;
-            const indicator = selectedOption.parentElement.querySelector('.result-indicator');
-            
-            indicator.innerHTML = isCorrect ? '✓' : '✗';
-            indicator.className = `result-indicator ${isCorrect ? 'correct' : 'incorrect'}`;
-            indicator.style.display = 'inline';
-            
-            if (isCorrect) score++;
+            answeredQuestions++;
+            // ... rest of the checking logic ...
         }
     });
 
-    // Remove existing score display if it exists
-    const existingScore = document.querySelector('.score-display');
-    if (existingScore) {
-        existingScore.remove();
+    // Optionally warn if not all questions are answered
+    if (answeredQuestions < questions.length) {
+        if (!confirm('You haven\'t answered all questions. Do you want to submit anyway?')) {
+            return;
+        }
     }
 
-    // Display score
-    const scoreDisplay = document.createElement('div');
-    scoreDisplay.className = 'score-display';
-    scoreDisplay.textContent = `Your Score: ${score}/${questions.length}`;
-    document.getElementById('quizContainer').appendChild(scoreDisplay);
+    // ... rest of the function ...
 }
 
-document.getElementById('topicSelect').addEventListener('change', (e) => {
-    createQuiz(e.target.value);
+// Add event listener for topic selection
+document.addEventListener('DOMContentLoaded', () => {
+    const topicSelect = document.getElementById('topicSelect');
+    const quizContainer = document.getElementById('quizContainer');
+    const progressContainer = document.getElementById('progressContainer');
+
+    topicSelect.addEventListener('change', (e) => {
+        if (e.target.value) {
+            createQuiz(e.target.value);
+            progressContainer.style.display = 'block';
+            quizContainer.style.display = 'block';
+        } else {
+            quizContainer.style.display = 'none';
+            progressContainer.style.display = 'none';
+            quizContainer.innerHTML = '';
+        }
+    });
+});
+
+// Add event listener for radio buttons to update progress
+document.addEventListener('change', (e) => {
+    if (e.target.type === 'radio') {
+        updateProgress();
+    }
 });

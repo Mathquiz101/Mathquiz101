@@ -672,7 +672,7 @@ const quizQuestions = {
             correct: 1
         },
         {
-            question: "What is the area of a trapezoid with bases 8 and 6, and height 4?",
+            question: "What is the area of a trapezoid with bases 8 cm and 6 cm, and height 4 cm?",
             options: ["28", "32", "34", "36"],
             correct: 0
         },
@@ -1481,7 +1481,9 @@ function createQuiz(topic) {
     selectedQuestions.forEach((q, index) => {
         const questionDiv = document.createElement('div');
         questionDiv.className = 'question-container';
-
+        // Add this line to store question data
+        questionDiv.dataset.question = JSON.stringify(q);
+        
         const questionText = document.createElement('div');
         questionText.className = 'question';
         questionText.textContent = `${index + 1}. ${q.question}`;
@@ -1526,21 +1528,20 @@ function createQuiz(topic) {
 }
 
 function checkAnswers() {
-    const topic = document.getElementById('topicSelect').value;
     const questions = document.querySelectorAll('.question-container');
     let score = 0;
 
     questions.forEach((container, index) => {
         const selectedOption = container.querySelector(`input[name="question${index}"]:checked`);
         const resultIndicators = container.querySelectorAll('.result-indicator');
+        const questionData = JSON.parse(container.dataset.question);
 
+        // Hide all indicators first
         resultIndicators.forEach(indicator => {
             indicator.style.display = 'none';
         });
 
         if (selectedOption) {
-            // Get the question data from the container's data attribute
-            const questionData = JSON.parse(container.dataset.question);
             const isCorrect = parseInt(selectedOption.value) === questionData.correct;
             const indicator = selectedOption.parentElement.querySelector('.result-indicator');
             
@@ -1552,11 +1553,17 @@ function checkAnswers() {
         }
     });
 
+    // Remove existing score display if it exists
+    const existingScore = document.querySelector('.score-display');
+    if (existingScore) {
+        existingScore.remove();
+    }
+
     // Display score
     const scoreDisplay = document.createElement('div');
     scoreDisplay.className = 'score-display';
     scoreDisplay.textContent = `Your Score: ${score}/${questions.length}`;
-    quizContainer.appendChild(scoreDisplay);
+    document.getElementById('quizContainer').appendChild(scoreDisplay);
 }
 
 document.getElementById('topicSelect').addEventListener('change', (e) => {

@@ -138,6 +138,24 @@ h1 {
     color: #1a73e8;
 }
 
+.try-again-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.try-again-btn:hover {
+    background-color: #45a049;
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 15px;

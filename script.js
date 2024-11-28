@@ -1804,12 +1804,29 @@ function createQuiz(topic) {
         quizContainer.appendChild(questionDiv);
     });
 
-    // Add submit button
+    // Add submit button with updated functionality
     const submitButton = document.createElement('button');
     submitButton.className = 'submit-btn';
     submitButton.textContent = 'Submit Quiz';
-    submitButton.disabled = true; // Disabled by default
-    submitButton.onclick = checkAnswers;
+    submitButton.disabled = true; // Start disabled
+
+    // Enable submit button when all questions are answered
+    const enableSubmitButton = () => {
+        const totalQuestions = document.querySelectorAll('.question-container').length;
+        const answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
+        submitButton.disabled = answeredQuestions < totalQuestions;
+    };
+
+    // Add event listener to all radio buttons
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', enableSubmitButton);
+    });
+
+    submitButton.onclick = () => {
+        checkAnswers();
+        submitButton.style.display = 'none'; // Hide submit button after submission
+    };
+
     quizContainer.appendChild(submitButton);
 
     // Reset progress bar
@@ -1830,7 +1847,6 @@ function checkAnswers() {
         });
 
         if (selectedOption) {
-            // Get the correct answer from the data attribute we'll add
             const correctAnswer = parseInt(container.dataset.correct);
             const isCorrect = parseInt(selectedOption.value) === correctAnswer;
             
@@ -1840,11 +1856,10 @@ function checkAnswers() {
             indicator.style.display = 'inline';
             
             if (isCorrect) score++;
-            
         }
     });
 
-    // Replace alert with score display div and add Try Another Round button
+    // Display score and add Try Again button
     const scoreDisplay = document.querySelector('.score-display') || document.createElement('div');
     scoreDisplay.className = 'score-display';
     scoreDisplay.textContent = `Your score: ${score}/${questionContainers.length}`;
@@ -1869,6 +1884,11 @@ function checkAnswers() {
     if (!container.contains(tryAgainButton)) {
         container.appendChild(tryAgainButton);
     }
+
+    // Disable all radio buttons after submission
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.disabled = true;
+    });
 }
 
 document.getElementById('topicSelect').addEventListener('change', (e) => {

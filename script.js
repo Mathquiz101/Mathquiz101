@@ -641,6 +641,11 @@ const quizQuestions = {
             question: "What is the value of 5³ (5 cubed)?",
             options: ["125", "150", "175", "200"],
             correct: 0
+        },
+        {
+            question: "What is the square of 14?",
+            options: ["160", "169", "196", "180"],
+            correct: 2
         }
     ],
     
@@ -1521,8 +1526,8 @@ const quizQuestions = {
         },
         {
             question: "What is the square of 14?",
-            options: ["160", "169", "176", "180"],
-            correct: 1
+            options: ["160", "169", "196", "180"],
+            correct: 2
         },
         {
             question: "What is the result of 125 ÷ 5?",
@@ -1733,21 +1738,15 @@ const quizQuestions = {
 };
 
 function updateProgress() {
-    // Change to count only the displayed questions
-    const totalQuestions = document.querySelectorAll('.question-container').length;
-    const answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
+    const answered = document.querySelectorAll('input[type="radio"]:checked').length;
+    const total = document.querySelectorAll('.question-container').length;
+    
     const progressBar = document.getElementById('progressBar');
     const progressText = document.getElementById('progressText');
     
-    const percentage = (answeredQuestions / totalQuestions) * 100;
+    const percentage = (answered / total) * 100;
     progressBar.style.width = `${percentage}%`;
-    progressText.textContent = `Questions Answered: ${answeredQuestions}/${totalQuestions}`;
-    
-    // Enable/disable submit button based on completion
-    const submitButton = document.querySelector('.submit-btn');
-    if (submitButton) {
-        submitButton.disabled = answeredQuestions < totalQuestions;
-    }
+    progressText.textContent = `Questions Answered: ${answered}/${total}`;
 }
 
 function createQuiz(topic) {
@@ -1820,7 +1819,7 @@ function createQuiz(topic) {
 function checkAnswers() {
     const questionContainers = document.querySelectorAll('.question-container');
     let score = 0;
-
+    
     questionContainers.forEach((container, index) => {
         const selectedOption = container.querySelector(`input[name="question${index}"]:checked`);
         const resultIndicators = container.querySelectorAll('.result-indicator');
@@ -1845,10 +1844,36 @@ function checkAnswers() {
         }
     });
 
-    // Display the score
-    alert(`Your score: ${score}/${questionContainers.length}`);
+    // Replace alert with score display div and add Try Another Round button
+    const scoreDisplay = document.querySelector('.score-display') || document.createElement('div');
+    scoreDisplay.className = 'score-display';
+    scoreDisplay.textContent = `Your score: ${score}/${questionContainers.length}`;
+    scoreDisplay.style.display = 'block';
+
+    // Create Try Another Round button
+    const tryAgainButton = document.createElement('button');
+    tryAgainButton.className = 'try-again-btn';
+    tryAgainButton.textContent = 'Try Another Round';
+    tryAgainButton.onclick = () => {
+        const currentTopic = document.getElementById('topicSelect').value;
+        createQuiz(currentTopic);
+        scoreDisplay.style.display = 'none';
+        tryAgainButton.remove();
+    };
+
+    // Add elements to container
+    const container = document.querySelector('.container');
+    if (!container.contains(scoreDisplay)) {
+        container.appendChild(scoreDisplay);
+    }
+    if (!container.contains(tryAgainButton)) {
+        container.appendChild(tryAgainButton);
+    }
 }
 
 document.getElementById('topicSelect').addEventListener('change', (e) => {
     createQuiz(e.target.value);
 });
+
+// Add this to your existing event listeners
+document.querySelector('.quiz-container').addEventListener('change', updateProgress);

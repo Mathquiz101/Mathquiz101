@@ -1,15 +1,3 @@
-// Add this at the top of your script.js file
-document.addEventListener('DOMContentLoaded', function() {
-    const topicSelect = document.getElementById('topicSelect');
-    if (topicSelect) {
-        topicSelect.addEventListener('change', (e) => {
-            if (e.target.value) {
-                createQuiz(e.target.value);
-            }
-        });
-    }
-});
-
 const quizQuestions = {
     Algebra: [
         {
@@ -2280,8 +2268,4 @@ document.querySelectorAll('.copy-btn').forEach(button => {
     });
 });
 
-// Add click handler for contact button
-document.querySelector('.contact-btn').addEventListener('click', () => {
-    // You can customize this to open your preferred contact method
-    window.location.href = 'mailto:your-email@example.com';
-});
+

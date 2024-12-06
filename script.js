@@ -2244,3 +2244,37 @@ document.getElementById('topicSelect').addEventListener('change', (e) => {
 
 // Add this to your existing event listeners
 document.querySelector('.quiz-container').addEventListener('change', updateProgress);
+
+// Show popup when page loads
+window.onload = function() {
+  document.getElementById('telegramPopup').style.display = 'block';
+}
+
+// Close popup function
+function closePopup() {
+  document.getElementById('telegramPopup').style.display = 'none';
+}
+
+// Add this to your existing script.js file
+document.querySelectorAll('.copy-btn').forEach(button => {
+    button.addEventListener('click', async () => {
+        const number = button.dataset.number;
+        try {
+            await navigator.clipboard.writeText(number);
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+            setTimeout(() => {
+                button.textContent = 'Copy Number';
+                button.classList.remove('copied');
+            }, 2000);
+        } catch (err) {
+            console.error('Failed to copy:', err);
+        }
+    });
+});
+
+// Add click handler for contact button
+document.querySelector('.contact-btn').addEventListener('click', () => {
+    // You can customize this to open your preferred contact method
+    window.location.href = 'mailto:your-email@example.com';
+});

@@ -406,8 +406,8 @@ const quizQuestions = {
             correct: 0
         },
         {
-            question: "Solve for x: x² = 16",
-            options: ["x = 4", "x = -4", "x = ±4", "x = 16"],
+            question: "Solve for x: x² = 25",
+            options: ["x = 4", "x = -4", "x = ±4", "x = 25"],
             correct: 2
         },
         {
@@ -796,11 +796,6 @@ const quizQuestions = {
             question: "In a data set, if the median is greater than the mean, the distribution is likely to be:",
             options: ["Symmetrical", "Positively skewed", "Negatively skewed", "Uniform"],
             correct: 2
-        },
-        {
-            question: "What is the median of the numbers 5, 9, 12, 15, 18, 20?",
-            options: ["12", "14", "15", "16"],
-            correct: 1
         },
         {
             question: "What is the probability of drawing an Ace from a standard deck of 52 cards?",
@@ -1685,8 +1680,8 @@ const quizQuestions = {
             correct: 1
         },
         {
-            question: "What is 25% of 200?",
-            options: ["40", "45", "50", "55"],
+            question: "What is 25% of 180?",
+            options: ["24", "26", "27", "28"],
             correct: 2
         },
         {

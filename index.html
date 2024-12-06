@@ -20,7 +20,61 @@
             <div class="progress-bar" id="progressBar"></div>
         </div>
         <div id="quizContainer" class="quiz-container"></div>
+
+        <!-- Add Donation Section Here -->
+        <div class="donation-section">
+            <h2 class="donation-title">Support Our Project</h2>
+            <p class="donation-description">Help us continue providing free educational resources by making a donation</p>
+            
+            <!-- Wave Donation Option -->
+            <div class="donation-method">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX1j8_1o20igEk7AJyDYrJ_cH3dBXBr6jwuw&usqp=CAU" alt="Wave Logo" class="wave-logo">
+                <div class="donation-info">
+                    <p>Wave Phone Number: <strong>3709558</strong></p>
+                    <button class="copy-btn" data-number="3709558">Copy Number</button>
+                </div>
+            </div>
+            
+            <!-- GTBank Donation Option -->
+            <div class="donation-method">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/GTBank_logo.svg/2048px-GTBank_logo.svg.png" alt="GTBank Logo" class="gtbank-logo">
+                <div class="donation-info">
+                    <p>GTBank Account Number: <strong>2032202001590</strong></p>
+                    <button class="copy-btn" data-number="2032202001590">Copy Number</button>
+                </div>
+            </div>
+            
+            <div class="donation-footer">
+                <p class="thank-you-note">Thank you for your support! ❤️</p>
+                <button class="contact-btn">Contact Us</button>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
+    <!-- Telegram Popup -->
+    <div class="telegram-popup" id="telegramPopup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            
+            <div class="popup-header">
+                <img src="https://logos-world.net/wp-content/uploads/2021/03/Telegram-Symbol.png" alt="Telegram Logo" class="telegram-logo">
+                <h2>🚨 Limited Time Access! 🚨</h2>
+            </div>
+
+            <div class="popup-body">
+                <p class="urgent-msg">⚠️ Our Telegram group is closing in less than 24 hours!</p>
+                <p>Join our exclusive Telegram channel to access:</p>
+                <ul>
+                    <li>📚 Free Video Lectures</li>
+                    <li>📝 Study Materials</li>
+                    <li>👥 Community Support</li>
+                    <li>🎯 Practice Problems</li>
+                </ul>
+                <a href="https://t.me/mathhub101" class="join-btn" target="_blank">
+                    Join Now Before It's Too Late!
+                </a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

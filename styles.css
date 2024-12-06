@@ -386,3 +386,46 @@ h1 {
         font-size: 24px;
     }
 }
+
+/* Carousel Styles */
+.carousel-item img {
+    height: 400px; /* Adjust height as needed */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.carousel {
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Add these styles if you want more control over the carousel navigation */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+    opacity: 0.8;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    opacity: 1;
+}
+
+/* Optional: Add smooth transitions for the slides */
+.carousel-item {
+    transition: transform 0.6s ease-in-out;
+}
+
+/* Optional: Style the carousel indicators if you want to add them */
+.carousel-indicators {
+    bottom: -40px;
+}
+
+.carousel-indicators li {
+    background-color: #1a73e8;
+    opacity: 0.5;
+}
+
+.carousel-indicators .active {
+    opacity: 1;
+}

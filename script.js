@@ -2201,32 +2201,32 @@ function checkAnswers() {
         }
     });
 
-    // Display score and add Try Again button
-    const scoreDisplay = document.querySelector('.score-display') || document.createElement('div');
+    // Create and show the score popup
+    const scorePopup = document.createElement('div');
+    scorePopup.className = 'score-popup';
+    scorePopup.style.display = 'block'; // Add this line to show the popup
+    
+    const scorePopupContent = document.createElement('div');
+    scorePopupContent.className = 'score-popup-content';
+    
+    const scoreDisplay = document.createElement('div');
     scoreDisplay.className = 'score-display';
     scoreDisplay.textContent = `Your score: ${score}/${questionContainers.length}`;
-    scoreDisplay.style.display = 'block';
-
-    // Create Try Another Round button
+    
     const tryAgainButton = document.createElement('button');
     tryAgainButton.className = 'try-again-btn';
     tryAgainButton.textContent = 'Try Another Round';
     tryAgainButton.onclick = () => {
         const currentTopic = document.getElementById('topicSelect').value;
         createQuiz(currentTopic);
-        scoreDisplay.style.display = 'none';
-        tryAgainButton.remove();
+        scorePopup.remove();
     };
-
-    // Add elements to container
-    const container = document.querySelector('.container');
-    if (!container.contains(scoreDisplay)) {
-        container.appendChild(scoreDisplay);
-    }
-    if (!container.contains(tryAgainButton)) {
-        container.appendChild(tryAgainButton);
-    }
-
+    
+    scorePopupContent.appendChild(scoreDisplay);
+    scorePopupContent.appendChild(tryAgainButton);
+    scorePopup.appendChild(scorePopupContent);
+    document.body.appendChild(scorePopup);
+    
     // Disable all radio buttons after submission
     document.querySelectorAll('input[type="radio"]').forEach(radio => {
         radio.disabled = true;
@@ -2267,5 +2267,3 @@ document.querySelectorAll('.copy-btn').forEach(button => {
         }
     });
 });
-
-

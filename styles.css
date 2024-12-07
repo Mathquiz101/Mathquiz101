@@ -347,3 +347,80 @@ h1 {
         text-align: center;
     }
 }
+
+/* Add these new styles */
+.score-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+}
+
+.score-popup-content {
+    position: relative;
+    background-color: #fff;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.score-display {
+    font-size: 28px;
+    color: #1a73e8;
+    margin-bottom: 20px;
+}
+
+/* Add these styles for the donation image container and image */
+.donation-image-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+.donation-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Responsive styles for different screen sizes */
+@media (max-width: 768px) {
+    .donation-image-container {
+        padding: 0 10px;
+        margin: 15px auto;
+    }
+    
+    .donation-title {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .donation-description {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .donation-image-container {
+        padding: 0 5px;
+        margin: 10px auto;
+    }
+    
+    .donation-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+}

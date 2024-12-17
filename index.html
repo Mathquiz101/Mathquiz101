@@ -7,61 +7,68 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <a href="https://waecmathsuccess.github.io/Waecmathsuccess/" class="return-home-btn">Return to Homepage</a>
-    <div class="container">
-        <h1>Mathematics Quiz</h1>
-        <select class="topic-select" id="topicSelect">
-            <option value="">Select a Topic</option>
-            <option value="Algebra">Algebra</option>
-            <option value="Geometry">Geometry</option>
-            <option value="Arithmetic">Arithmetic</option>
-        </select>
-        <div class="progress-container" id="progressContainer">
-            <div class="progress-text" id="progressText">Questions Answered: 0/5</div>
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-        <div id="quizContainer" class="quiz-container"></div>
-<div class="donate-banner">
-    <a href="https://mathquiz101.github.io/Mathquiz101/" target="_blank" rel="noopener noreferrer">PLEASE DONATE</a>
-</div>
+    <!-- Navigation -->
+    <nav>
+        <a href="https://waecmathsuccess.github.io/Waecmathsuccess/" class="return-home-btn">Return to Homepage</a>
+    </nav>
 
-        <section id="donate" class="donate-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <div class="donation-section">
-                            <h2 class="donation-title">Over 90% of children in sub-Saharan Africa can't read or solve basic math by age 10.</h2>
-                            
-                            <div class="donation-image-container">
-                                <img 
-                                    src="https://www.educationcannotwait.org/sites/default/files/styles/de2e_standard/public/2022-03/DRC_banner%20%281%29.jpg?h=d2de68a6&itok=BMQy3knl"
-                                    alt="Children in classroom in DRC" 
-                                    class="donation-image"
-                                    loading="lazy"
-                                />
-                            </div>
-                            
-                            <p class="donation-description">Worse still, over 75% of Africans have no access to free online tutoring or educational resources. Your support can change this. Donate today to help us provide free learning tools and unlock the potential of millions of bright young minds.</p>
-                            
-                           
-                            
-                            
-                            
-                           
-                        </div>
-                    </div>
-                </div>
+    <!-- Main Content -->
+    <main class="container">
+        <h1>Mathematics Quiz</h1>
+        
+        <!-- Quiz Controls -->
+        <section class="quiz-controls">
+            <select class="topic-select" id="topicSelect">
+                <option value="">Select a Topic</option>
+                <option value="Algebra">Algebra</option>
+                <option value="Geometry">Geometry</option>
+                <option value="Arithmetic">Arithmetic</option>
+            </select>
+
+            <div class="progress-container" id="progressContainer">
+                <div class="progress-text" id="progressText">Questions Answered: 0/5</div>
+                <div class="progress-bar" id="progressBar"></div>
             </div>
         </section>
+
+        <!-- Quiz Content -->
+        <section id="quizContainer" class="quiz-container"></section>
+
+        <!-- Donation Section -->
+        <section id="donate" class="donate-section">
+            <h2 class="donation-title">Over 90% of children in sub-Saharan Africa can't read or solve basic math by age 10.</h2>
+            
+            <div class="donation-image-container">
+                <img src="https://www.educationcannotwait.org/sites/default/files/styles/de2e_standard/public/2022-03/DRC_banner%20%281%29.jpg"
+                     alt="Children in classroom in DRC" 
+                     class="donation-image"
+                     loading="lazy">
+            </div>
+            
+            <p class="donation-description">
+                Worse still, over 75% of Africans have no access to free online tutoring or educational resources. 
+                Your support can change this. Donate today to help us provide free learning tools and unlock the 
+                potential of millions of bright young minds.
+            </p>
+        </section>
+    </main>
+
+    <!-- Fixed Elements -->
+    <div class="donate-banner">
+        <a href="https://mathquiz101.github.io/Mathquiz101/" target="_blank" rel="noopener noreferrer">
+            PLEASE DONATE
+        </a>
     </div>
-    <script src="script.js"></script>
+
     <!-- Telegram Popup -->
     <div class="telegram-popup" id="telegramPopup">
         <div class="popup-content">
             <span class="close-btn" onclick="closePopup()">&times;</span>
             
             <div class="popup-header">
-                <img src="https://logos-world.net/wp-content/uploads/2021/03/Telegram-Symbol.png" alt="Telegram Logo" class="telegram-logo">
+                <img src="https://logos-world.net/wp-content/uploads/2021/03/Telegram-Symbol.png" 
+                     alt="Telegram Logo" 
+                     class="telegram-logo">
                 <h2>🚨 Limited Time Access! 🚨</h2>
             </div>
 
@@ -80,5 +87,7 @@
             </div>
         </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
